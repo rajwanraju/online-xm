@@ -67,7 +67,7 @@ return new ExamResource($exam);
   public function show(Exam $exam)
     {
 
-        return $exam;
+       
 
         return new ExamResource($exam);
 

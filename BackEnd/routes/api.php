@@ -20,7 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-Route::apiResource('/Exam','ExamController');
+Route::apiResource('/Exams','ExamController');
+Route::apiResource('/Courses','CourseController');
 Route::group(['prefix'=>'Exam'],function(){
 	Route::apiResource('/{Exam}/Questions','ExamQuestionController');
 });
