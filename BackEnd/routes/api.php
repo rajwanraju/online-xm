@@ -21,7 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::apiResource('/Exams','ExamController');
+Route::apiResource('/Exam-Question','ExamQuestionController');
 Route::apiResource('/Courses','CourseController');
+Route::apiResource('/Question-Type','QuestionTypeController');
 Route::group(['prefix'=>'Exam'],function(){
 	Route::apiResource('/{Exam}/Questions','ExamQuestionController');
 });

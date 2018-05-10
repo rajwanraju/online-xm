@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exam_Question;
 use Illuminate\Http\Request;
+use App\Http\Resources\ExamQuestion\ExamQuestionResource;
 
 class ExamQuestionController extends Controller
 {
@@ -14,7 +15,7 @@ class ExamQuestionController extends Controller
      */
     public function index()
     {
-        //
+        return ExamQuestionResource::collection(Exam_Question::paginate(20));
     }
 
     /**
@@ -35,41 +36,45 @@ class ExamQuestionController extends Controller
      */
     public function store(Request $request)
     {
-         $exam = $request->isMethod('put') ? Exam::findOrFail
-    ($request->exam_id):new Exam;
+         $question = $request->isMethod('put') ? Exam-Question::findOrFail
+    ($request->id):new Exam_Question;
 
-    $exam->exam_id = $request->input('exam_id');
-     $exam->instruction = $request->input('instruction');
-      $exam->duration = $request->input('duration');
-       $exam->start_date_time = $request->input('start_date_time');
-     $exam->end_date_time = $request->input('end_date_time');
-      $exam->is_live = $request->input('is_live');
-      $exam->teacher_id = $request->input('teacher_id');
-      $exam->course_id = $request->input('course_id');
+    $question->id = $request->input('id');
+     $question->option_1 = $request->input('option_1');
+     $question->option_2 = $request->input('option_2');
+     $question->option_3 = $request->input('option_3');
+     $question->option_4 = $request->input('option_4');
+      $question->answer_1 = $request->input('answer_1');
+      $question->answer_2 = $request->input('answer_2');
+      $question->answer_3 = $request->input('answer_3');
+      $question->answer_4 = $request->input('answer_4');
+      $question->mark = $request->input('mark');
+      $question->exam_id = $request->input('exam_id');
 
-      if($exam->save()){
-return new ExamResource($exam);
+      if($question->save()){
+return new ExamQuestionResource($question);
       }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Exam_Question  $exam_Question
+     * @param  \App\question_Question  $question_Question
      * @return \Illuminate\Http\Response
      */
-    public function show(Exam_Question $exam_Question)
+    public function show(Exam_Question $Exam_Question)
     {
-        //
+        
+        return new ExamQuestionResource($Exam_Question);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Exam_Question  $exam_Question
+     * @param  \App\question_Question  $question_Question
      * @return \Illuminate\Http\Response
      */
-    public function edit(Exam_Question $exam_Question)
+    public function edit(Exam_Question $Exam_Question)
     {
         //
     }
@@ -78,22 +83,25 @@ return new ExamResource($exam);
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Exam_Question  $exam_Question
+     * @param  \App\question_Question  $question_Question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Exam_Question $exam_Question)
+    public function update(Request $request, Exam_Question $Exam_Question)
     {
-        //
+         //dd($Exam_Question);
+       $Exam_Question->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Exam_Question  $exam_Question
+     * @param  \App\question_Question  $question_Question
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Exam_Question $exam_Question)
+    public function destroy(Exam_Question $Exam_Question)
     {
-        //
+        $Exam_Question->delete();
+
+      return response()->json(null, 204);
     }
 }

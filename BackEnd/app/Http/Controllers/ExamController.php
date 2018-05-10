@@ -42,9 +42,9 @@ class ExamController extends Controller
     public function store(Request $request)
     {
          $exam = $request->isMethod('put') ? Exam::findOrFail
-    ($request->exam_id):new Exam;
+    ($request->id):new Exam;
 
-    $exam->exam_id = $request->input('exam_id');
+    $exam->id = $request->input('id');
      $exam->instruction = $request->input('instruction');
       $exam->duration = $request->input('duration');
        $exam->start_date_time = $request->input('start_date_time');
@@ -64,12 +64,11 @@ return new ExamResource($exam);
      * @param  \App\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-  public function show(Exam $exam)
+  public function show(Exam $Exam)
     {
 
        
-
-        return new ExamResource($exam);
+        return new ExamResource($Exam);
 
     }
 
@@ -79,10 +78,7 @@ return new ExamResource($exam);
      * @param  \App\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function edit(Exam $exam)
-    {
-        //
-    }
+   
 
     /**
      * Update the specified resource in storage.
@@ -91,11 +87,12 @@ return new ExamResource($exam);
      * @param  \App\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-     public function update(Request $request, Exam $exam)
+     public function update(Request $request, Exam $Exam)
     {
        // return $request->all();
 
         $exam->update($request->all());
+        return new ExamResource($Exam);
     }
 
     /**
@@ -104,9 +101,9 @@ return new ExamResource($exam);
      * @param  \App\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Exam $exam)
+    public function destroy(Exam $Exam)
     {  
-       $exam->delete();
+       $Exam->delete();
 
       return response()->json(null, 204);
     }

@@ -6,6 +6,7 @@ use App\Course;
 use Illuminate\Http\Request;
 use App\Http\Resources\Course\CourseResource;
 use App\Http\Requests;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class CourseController extends Controller
@@ -39,9 +40,9 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $course = $request->isMethod('put') ? Course::findOrFail
-    ($request->course_id):new Course;
+    ($request->id):new Course;
 
-    $course->course_id = $request->input('course_id');
+    $course->id = $request->input('id');
      $course->course_short_name = $request->input('course_short_name');
       $course->course_name = $request->input('course_name');
        $course->course_code = $request->input('course_code');
@@ -56,9 +57,11 @@ return new CourseResource($course);
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show(Course $Course )
     {
-        return new CourseResource($course);
+        
+
+        return new CourseResource($Course);
     }
 
     /**
@@ -67,7 +70,7 @@ return new CourseResource($course);
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit(Course $Course)
     {
         //
     }
@@ -79,9 +82,12 @@ return new CourseResource($course);
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, Course $Course)
     {
-          $course->update($request->all());
+           
+       $Course->update($request->only(['id','course_short_name', 'course_name', 'course_code']));
+
+      return new CourseResource($Course);
     }
 
     /**
@@ -90,10 +96,12 @@ return new CourseResource($course);
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy(Course $Course)
     {
-          $course->delete();
+          $Course->delete();
 
       return response()->json(null, 204);
     }
 }
+
+

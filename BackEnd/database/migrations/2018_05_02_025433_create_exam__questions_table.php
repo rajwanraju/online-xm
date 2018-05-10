@@ -14,7 +14,7 @@ class CreateExamQuestionsTable extends Migration
     public function up()
     {
         Schema::create('exam__questions', function (Blueprint $table) {
-           $table->integer('question_id')->autoIncrement();
+           $table->integer('id')->autoIncrement();
             $table->string('option_1');
             $table->string('option_2');
             $table->string('option_3');

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Question;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ExamQuestionResource extends JsonResource
+class QuestionTypeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,12 @@ class ExamQuestionResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description
+             
+
+        ];
     }
 }

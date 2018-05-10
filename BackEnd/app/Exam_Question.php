@@ -14,6 +14,13 @@ protected $fillable = [
 	
     public function Exam()
     {
-    	return $this->belongsTo(Exam::class); 
+    	return $this->hasOne(Exam::class); 
     }
+
+ public function QuestionType()
+    {
+        return $this->hasMany('App\QuestionType');
+    }
+
+
 }
